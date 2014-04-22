@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class KennelDriver {
+public class ExpandableArray {
 
     public static void main(final String[] args) {
 
