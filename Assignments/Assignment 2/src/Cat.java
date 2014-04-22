@@ -1,14 +1,6 @@
 import java.util.Date;
 
-public class Cat {//
-    // ID:int
-    // name:string
-    // age:int
-    // gender:char
-    // ownerName:string
-    // phone: int
-    // checkinDate: Date class from java lib
-    // All these are data members, do not use new data to test use driver
+public class Cat {
 
     private int id;
     private String name;
@@ -19,23 +11,6 @@ public class Cat {//
     private Date checkIn;
     private Date checkOut;
 
-    // Constructor with predefined value:
-    // public Cat(final int id//, final String name, final String ownerName,
-    // final int a, final int s, final String p, final int ph, final Date cI,
-    // final Date cO) {
-    // this.id = (int)(Math.random()*1000000);
-    // this.name;
-    // this.ownerName;
-    // this.age = (int)(Math.random()*20);
-    // this.sex;
-    // this.phone = (int)(Math.random()*999999999);
-    // this.checkIn = new Date();
-    // System.out.println(checkIn);
-    // this.checkOut = null;
-    // }
-
-    // Setters: methods that modify the data members
-    // Getters: methods that access the data members
     public Cat() {
 
     }

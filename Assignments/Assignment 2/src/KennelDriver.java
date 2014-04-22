@@ -3,11 +3,7 @@ import java.util.Scanner;
 public class KennelDriver {
 
     public static void main(final String[] args) {
-        // public Cat(final int id, final String name, final String ownerName,
-        // final int a, final int s, final String p, final int ph, final Date
-        // cI, final Date cO ){
 
-        // final Cat c = new Cat("kitty", "jack", 4, 'f', );
         System.out.println("Welcome to Catfriends league!! Please choose from an option below");
         System.out.println("A) Insert a new cat");
         System.out.println("B) Remove cat from exhistance in the array of kennels");
