@@ -1,67 +1,98 @@
-import java.util.Scanner;
-
 public class ExpandableArray {
 
-    public static void main(final String[] args) {
+    private int CURRENT_NUMBER_OF_KENNELS;
+    private Cat[] cats;
+    private int length;
+    private final int kennelsAvailible = (length - CURRENT_NUMBER_OF_KENNELS);
+    private double percentOfKennelsFull;
 
-        System.out.println("Welcome to Catfriends league!! Please choose from an option below");
-        System.out.println("A) Insert a new cat");
-        System.out.println("B) Remove cat from exhistance in the array of kennels");
-        System.out.println("C) Display Report");
-        System.out.println("D) Exit the Program");
+    // TODO Method remove( Cat c ) which removes cat c from the array if it
+    // existed and returns 0 if remove is successful, -1 otherwise. You can
+    // identify the cat using the ID.
+    // TODO Method get( int i )which returns the Cat stored at index i of the
+    // array or return null if i is outside the range of the array.
+    // TODO Method contains( Cat c ) which returns true if the cat c is in the
+    // array and false otherwise. You can identify the cat using the ID.
 
-        final Scanner UI = new Scanner(System.in);
-
-        final Kennel kennel = new Kennel();
-        String line;
-        mainLoop: while ((line = UI.nextLine()) != null && line.trim().length() > 0) {
-
-            switch (Character.toUpperCase(line.trim().charAt(0))) {
-                case 'A':
-                    final Cat newCat = new Cat();
-                    if (kennel.addCat(newCat) == -1) {
-                        System.out.println("Im sorry it turns out we dont have room for your cat at this time");
-                        break;
-                    } else {
-                        System.out.println("Thanks for boarding your cat with us, please add your cats information");
-                    }
-
-                    System.out.println("What is your cats name?");
-                    newCat.setName(UI.nextLine());
-                    System.out.println("What is your cats age?");
-                    newCat.setAge(Integer.valueOf(UI.nextLine()));
-                    System.out.println("What is your cats sex? [M/F]");
-                    newCat.setSex(UI.nextLine().charAt(0));
-                    System.out.println("What is your name?");
-                    newCat.setOwnerName(UI.nextLine());
-                    System.out.println("What is your phone number?");
-                    newCat.setPhone(Integer.valueOf(UI.nextLine()));
-                    break;
-                case 'B':
-                    System.out.println("Whats the ID for the cat leaving the kennel?");
-                    int catId;
-                    if (kennel.removeCat((catId = Integer.valueOf(UI.nextLine()))) == -1) {
-                        System.out.println("Could not remove cat with id: " + catId);
-                    } else {
-                        System.out.println("Successfully removed cat: " + catId);
-                    }
-                    break;
-                case 'C':
-                    System.out.println("Kennel Report");
-                    kennel.displayReport();
-                    break;
-                case 'D':
-                    break mainLoop;
-
-            }
-            System.out.println("Welcome to Catfriends league!! Please choose from an option below");
-            System.out.println("A) Insert a new cat");
-            System.out.println("B) Remove cat from exhistance in the array of kennels");
-            System.out.println("C) Display Report");
-            System.out.println("D) Exit the Program");
-
-        }
-
-        System.out.println("Thank you for using KennelSoft.. have a nice day!");
+    public ExpandableArray() {
+        CURRENT_NUMBER_OF_KENNELS = 2;
+        cats = new Cat[CURRENT_NUMBER_OF_KENNELS];
+        length = 0;
     }
+
+    public int add(final Cat cat) {
+        expandArray();
+        cat.setId(length);
+        cats[length] = cat;
+        ++length;
+        return 0;
+    }
+
+    public int remove(final int id) {
+
+        if (cats[id] != null) {
+            for (int i = id, j = id + 1; i < length; ++i, ++j) {
+                cats[i] = cats[j];
+                cats[i].setId(i);
+            }
+            shrinkArray();
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+
+    // public String removeCatName(final String name) {
+    //
+    // for (int i= 0; i < catCounter; ++i) {
+    //
+    // }
+    // shrinkArray();
+    // return 0;
+    // } else {
+    // return -1;
+    // }
+    // }
+
+    public void displayReport() {
+        if (length == 0) {
+            System.out.println("No cats in the kennel");
+        } else {
+            System.out.println("There are: " + kennelsAvailible + " kennels available.");
+            for (int i = 0; i < length; ++i) {
+                System.out.println(cats[i]);
+            }
+        }
+    }
+
+    private double percentOfKennelsFull() {
+        if (CURRENT_NUMBER_OF_KENNELS != 0) {
+            percentOfKennelsFull = (length / CURRENT_NUMBER_OF_KENNELS);
+        }
+        return 0;
+
+    }
+
+    private void expandArray() {
+        if (length == CURRENT_NUMBER_OF_KENNELS && length > 1 && CURRENT_NUMBER_OF_KENNELS > 1) {
+            final Cat[] temp = new Cat[(CURRENT_NUMBER_OF_KENNELS / 2)];
+            for (int i = 0, j = 0; i < CURRENT_NUMBER_OF_KENNELS; ++i, ++j) {
+                cats[i] = temp[j];
+                cats = temp;
+            }
+            CURRENT_NUMBER_OF_KENNELS = (CURRENT_NUMBER_OF_KENNELS / 2);
+        }
+    }
+
+    private void shrinkArray() {
+        if (percentOfKennelsFull <= .25 && length >= 4) {
+            final Cat[] temp = new Cat[(CURRENT_NUMBER_OF_KENNELS / 2)];
+            for (int i = 0, j = 0; i < CURRENT_NUMBER_OF_KENNELS; ++i, ++j) {
+                cats[i] = temp[j];
+                cats = temp;
+            }
+            CURRENT_NUMBER_OF_KENNELS = (CURRENT_NUMBER_OF_KENNELS / 2);
+        }
+    }
+
 }
