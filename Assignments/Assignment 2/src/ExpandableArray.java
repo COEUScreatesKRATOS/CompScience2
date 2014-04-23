@@ -6,14 +6,6 @@ public class ExpandableArray {
     private final int kennelsAvailible = (length - CURRENT_NUMBER_OF_KENNELS);
     private double percentOfKennelsFull;
 
-    // TODO Method remove( Cat c ) which removes cat c from the array if it
-    // existed and returns 0 if remove is successful, -1 otherwise. You can
-    // identify the cat using the ID.
-    // TODO Method get( int i )which returns the Cat stored at index i of the
-    // array or return null if i is outside the range of the array.
-    // TODO Method contains( Cat c ) which returns true if the cat c is in the
-    // array and false otherwise. You can identify the cat using the ID.
-
     public ExpandableArray() {
         CURRENT_NUMBER_OF_KENNELS = 2;
         cats = new Cat[CURRENT_NUMBER_OF_KENNELS];
@@ -28,12 +20,12 @@ public class ExpandableArray {
         return 0;
     }
 
-    public int remove(final int id) {
-
-        if (cats[id] != null) {
-            for (int i = id, j = id + 1; i < length; ++i, ++j) {
+    public int removeCat(final Cat cat) {
+        if (cats[cat.getId()] != null) {
+            for (int i = cat.getId(), j = cat.getId() + 1; i < length; ++i, ++j) {
                 cats[i] = cats[j];
                 cats[i].setId(i);
+                cats[j] = null;
             }
             shrinkArray();
             return 0;
@@ -42,17 +34,19 @@ public class ExpandableArray {
         }
     }
 
-    // public String removeCatName(final String name) {
-    //
-    // for (int i= 0; i < catCounter; ++i) {
-    //
-    // }
-    // shrinkArray();
-    // return 0;
-    // } else {
-    // return -1;
-    // }
-    // }
+    public int remove(final int id) {
+        if (cats[id] != null) {
+            for (int i = id, j = id + 1; i < length; ++i, ++j) {
+                cats[i] = cats[j];
+                cats[i].setId(i);
+                cats[j] = null;
+            }
+            shrinkArray();
+            return 0;
+        } else {
+            return -1;
+        }
+    }
 
     public void displayReport() {
         if (length == 0) {
@@ -70,7 +64,6 @@ public class ExpandableArray {
             percentOfKennelsFull = (length / CURRENT_NUMBER_OF_KENNELS);
         }
         return 0;
-
     }
 
     private void expandArray() {
@@ -79,6 +72,7 @@ public class ExpandableArray {
             for (int i = 0, j = 0; i < CURRENT_NUMBER_OF_KENNELS; ++i, ++j) {
                 cats[i] = temp[j];
                 cats = temp;
+                temp[j] = null;
             }
             CURRENT_NUMBER_OF_KENNELS = (CURRENT_NUMBER_OF_KENNELS / 2);
         }
@@ -90,6 +84,7 @@ public class ExpandableArray {
             for (int i = 0, j = 0; i < CURRENT_NUMBER_OF_KENNELS; ++i, ++j) {
                 cats[i] = temp[j];
                 cats = temp;
+                temp[j] = null;
             }
             CURRENT_NUMBER_OF_KENNELS = (CURRENT_NUMBER_OF_KENNELS / 2);
         }
