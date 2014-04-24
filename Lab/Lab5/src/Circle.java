@@ -3,8 +3,7 @@
  */
 
 /**
- * @author ChrisHardingBrown
- * 
+ * Chris HardingBrown 4/16/2014 Comp 1672 CompSci II Lab 5
  */
 public class Circle {
 
@@ -33,12 +32,20 @@ public class Circle {
     }
 
     public void move() {
-        if (myX > 500 - myDiameter / 2 || myX < myDiameter / 2) {
+        if (myX < myDiameter / 2) {
             myXVel *= -1;
+            myX = myDiameter / 2;
+        } else if (myX > 500 - myDiameter / 2) {
+            myXVel *= -1;
+            myX = (500 - myDiameter / 2);
         }
 
-        if (myY > 500 - myDiameter / 2 || myY < myDiameter / 2) {
+        if (myY < radius) {
             myYVel *= -1;
+            myY = myDiameter / 2;
+        } else if (myY > 500 - myDiameter / 2) {
+            myYVel *= -1;
+            myY = (500 - myDiameter / 2);
         }
 
         myY += myYVel;
