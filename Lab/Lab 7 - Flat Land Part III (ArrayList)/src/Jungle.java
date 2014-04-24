@@ -1,13 +1,10 @@
 import java.util.Random;
 
 /**
- * Chris HardingBrown 4/16/2014 Comp 1672 CompSci II Lab 5
+ * @author ChrisHardingBrown Apr 24, 2014 Comp 1672
  */
 public class Jungle {
 
-    /**
-     * @param args
-     */
     public static void main(final String[] args) {
         // initialize the canvas
         StdDraw.setCanvasSize(500, 500);

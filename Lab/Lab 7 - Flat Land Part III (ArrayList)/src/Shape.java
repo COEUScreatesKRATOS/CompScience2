@@ -1,50 +1,46 @@
-
 /**
- * @author ChrisHardingBrown
- * Apr 24, 2014
- * Comp 1672
+ * @author ChrisHardingBrown Apr 24, 2014 Comp 1672
  */
-public class Circle {
+public abstract class Shape {
 
     private int myX;
     private int myY;
     private int myXVel;
     private int myYVel;
-    private final int myDiameter;
-    private boolean isHidden;
+    private final int myWidth;
+    private final int myHeight;
+    public double distancetocorner;
+    private final int diameter;
+    private boolean hidden;
     private final double radius;
 
-    public Circle(final int x, final int y) {
+    public Shape(final int x, final int y) {
         myX = x;
         myY = y;
         myXVel = 5;
-        myYVel = 4;
-        myDiameter = 10;
-        radius = myDiameter / 2.0;
-    }
+        myWidth = 10;
+        myHeight = 10;
+        diameter = (myX * 2);
+        radius = myX;
 
-    public void draw() {
-        if (!isHidden) {
-            StdDraw.setPenColor(StdDraw.YELLOW);
-            StdDraw.filledCircle(myX, myY, myDiameter);
-        }
+        distancetocorner = Math.sqrt(Math.pow(myWidth / 2.0, 2) + Math.pow(myHeight / 2.0, 2));
     }
 
     public void move() {
-        if (myX < myDiameter / 2) {
+        if (myX < myWidth / 2) {
             myXVel *= -1;
-            myX = myDiameter / 2;
-        } else if (myX > 500 - myDiameter / 2) {
+            myX = myWidth / 2;
+        } else if (myX > 500 - myWidth / 2) {
             myXVel *= -1;
-            myX = (500 - myDiameter / 2);
+            myX = (500 - myWidth / 2);
         }
 
-        if (myY < radius) {
+        if (myY < myHeight / 2) {
             myYVel *= -1;
-            myY = myDiameter / 2;
-        } else if (myY > 500 - myDiameter / 2) {
+            myY = myHeight / 2;
+        } else if (myY > 500 - myHeight / 2) {
             myYVel *= -1;
-            myY = (500 - myDiameter / 2);
+            myY = (500 - myHeight / 2);
         }
 
         myY += myYVel;
@@ -53,16 +49,22 @@ public class Circle {
 
     }
 
-    public void collision(final Square[] squares) {
-        if (isHidden) {
+    public void draw() {
+        if (!hidden) {
+            // TODO Draw
+        }
+    }
+
+    public void collision(final Shape[] shapes) {
+        if (hidden) {
             return;
         }
 
-        for (final Square square : squares) {
-            final int sXValue = square.getMyX();
-            final int sMyWidth = square.getMyWidth();
-            final int sMyHeight = square.getMyHeight();
-            final int sYValue = square.getMyY();
+        for (final Shape shape : shapes) {
+            final int sXValue = shape.getMyX();
+            final int sMyWidth = shape.getMyWidth();
+            final int sMyHeight = shape.getMyHeight();
+            final int sYValue = shape.getMyY();
 
             if ((sXValue - (sMyWidth / 2.0)) <= myX && myX <= (sXValue + (sMyWidth / 2.0))) {
                 // Using vertical collision detection
@@ -70,7 +72,7 @@ public class Circle {
                 final double deltaY = Math.abs(sYValue - myY);
 
                 if (deltaY <= threshold) {
-                    isHidden = true;
+                    hidden = true;
                     System.out.println("hidden do to vertical collsion");
                     return;
                 }
@@ -80,21 +82,41 @@ public class Circle {
                 final double deltaX = Math.abs(sXValue - myX);
 
                 if (deltaX <= threshold) {
-                    isHidden = true;
+                    hidden = true;
                     System.out.println("hidden do to horizontal collsion");
                     return;
                 }
             } else {
                 // TODO Using corner collision detection
-                final double minDistBCenter = square.distancetocorner + radius;
+                final double minDistBCenter = shape.distancetocorner + radius;
                 final double distBetweenCenter = Math.sqrt(Math.pow((sXValue - myX), 2) + Math.pow((sYValue - myY), 2));
 
                 if (distBetweenCenter <= minDistBCenter) {
-                    isHidden = true;
+                    hidden = true;
                     System.out.println("hidden do to corner collsion");
                     return;
                 }
             }
         }
+    }
+
+    public int getDiameter() {
+        return diameter;
+    }
+
+    public int getMyX() {
+        return myX;
+    }
+
+    public int getMyY() {
+        return myY;
+    }
+
+    public int getMyWidth() {
+        return myWidth;
+    }
+
+    public int getMyHeight() {
+        return myHeight;
     }
 }
