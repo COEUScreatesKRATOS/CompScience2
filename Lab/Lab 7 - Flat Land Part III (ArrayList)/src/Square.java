@@ -1,9 +1,14 @@
-/**
- * @author ChrisHardingBrown Apr 24, 2014 Comp 1672
- */
 public class Square extends Shape {
 
     public Square(final int x, final int y) {
-        super();
+        super(x, y);
+    }
+
+    @Override
+    public void draw() {
+        if (!hidden) {
+            StdDraw.setPenColor(StdDraw.RED);
+            StdDraw.filledSquare(myX, myY, radius);
+        }
     }
 }

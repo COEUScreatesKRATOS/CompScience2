@@ -3,25 +3,23 @@
  */
 public abstract class Shape {
 
-    private int myX;
-    private int myY;
+    protected double myX;
+    protected double myY;
     private int myXVel;
     private int myYVel;
     private final int myWidth;
     private final int myHeight;
     public double distancetocorner;
-    private final int diameter;
-    private boolean hidden;
-    private final double radius;
+    protected boolean hidden;
+    protected double radius;
 
-    public Shape(final int x, final int y) {
+    public Shape(final double x, final double y) {
         myX = x;
         myY = y;
         myXVel = 5;
         myWidth = 10;
         myHeight = 10;
-        diameter = (myX * 2);
-        radius = myX;
+        radius = 10;
 
         distancetocorner = Math.sqrt(Math.pow(myWidth / 2.0, 2) + Math.pow(myHeight / 2.0, 2));
     }
@@ -51,7 +49,7 @@ public abstract class Shape {
 
     public void draw() {
         if (!hidden) {
-            // TODO Draw
+
         }
     }
 
@@ -61,14 +59,14 @@ public abstract class Shape {
         }
 
         for (final Shape shape : shapes) {
-            final int sXValue = shape.getMyX();
+            final double sXValue = shape.getMyX();
             final int sMyWidth = shape.getMyWidth();
             final int sMyHeight = shape.getMyHeight();
-            final int sYValue = shape.getMyY();
+            final double sYValue = shape.getMyY();
 
             if ((sXValue - (sMyWidth / 2.0)) <= myX && myX <= (sXValue + (sMyWidth / 2.0))) {
                 // Using vertical collision detection
-                final double threshold = (radius + (sMyHeight / 2.0));
+                final double threshold = (myY + (sMyHeight / 2.0));
                 final double deltaY = Math.abs(sYValue - myY);
 
                 if (deltaY <= threshold) {
@@ -78,7 +76,7 @@ public abstract class Shape {
                 }
             } else if ((sYValue - (sMyHeight / 2.0)) <= myY && myY <= (sYValue + (sMyHeight / 2.0))) {
                 // TODO Using horizontal collision detection
-                final double threshold = (radius + (sMyWidth / 2.0));
+                final double threshold = (myX + (sMyWidth / 2.0));
                 final double deltaX = Math.abs(sXValue - myX);
 
                 if (deltaX <= threshold) {
@@ -88,7 +86,7 @@ public abstract class Shape {
                 }
             } else {
                 // TODO Using corner collision detection
-                final double minDistBCenter = shape.distancetocorner + radius;
+                final double minDistBCenter = shape.distancetocorner + (radius / 2);
                 final double distBetweenCenter = Math.sqrt(Math.pow((sXValue - myX), 2) + Math.pow((sYValue - myY), 2));
 
                 if (distBetweenCenter <= minDistBCenter) {
@@ -100,15 +98,15 @@ public abstract class Shape {
         }
     }
 
-    public int getDiameter() {
-        return diameter;
+    public double getDiameter() {
+        return radius;
     }
 
-    public int getMyX() {
+    public double getMyX() {
         return myX;
     }
 
-    public int getMyY() {
+    public double getMyY() {
         return myY;
     }
 
