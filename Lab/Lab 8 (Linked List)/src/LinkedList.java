@@ -1,13 +1,12 @@
+/**
+ * Chris HardingBrown 4/16/2014 Comp 1672 CompSci II Lab 5
+ */
+
 public class LinkedList {
     private Node head;
 
     public LinkedList() {
         head = null;
-    }
-
-    public void insertNumberAtHead(final int i) {
-        final Node newNode = new Node(i, head);
-        head = newNode;
     }
 
     public void insertNumber(final int i) {

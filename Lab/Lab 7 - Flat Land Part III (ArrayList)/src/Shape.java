@@ -11,12 +11,13 @@ public abstract class Shape {
     private final int myHeight;
     public double distancetocorner;
     protected boolean hidden;
-    protected double radius;
+    protected double radius;;
 
     public Shape(final double x, final double y) {
         myX = x;
         myY = y;
         myXVel = 5;
+        myYVel = 5;
         myWidth = 10;
         myHeight = 10;
         radius = 10;
@@ -24,7 +25,7 @@ public abstract class Shape {
         distancetocorner = Math.sqrt(Math.pow(myWidth / 2.0, 2) + Math.pow(myHeight / 2.0, 2));
     }
 
-    public void move() {
+    public void moveX() {
         if (myX < myWidth / 2) {
             myXVel *= -1;
             myX = myWidth / 2;
@@ -33,6 +34,10 @@ public abstract class Shape {
             myX = (500 - myWidth / 2);
         }
 
+        myX += myXVel;
+    }
+
+    public void moveY() {
         if (myY < myHeight / 2) {
             myYVel *= -1;
             myY = myHeight / 2;
@@ -42,9 +47,6 @@ public abstract class Shape {
         }
 
         myY += myYVel;
-
-        myX += myXVel;
-
     }
 
     public void draw() {
@@ -53,7 +55,27 @@ public abstract class Shape {
         }
     }
 
-    public void collision(final Shape[] shapes) {
+    public double getRadius() {
+        return radius;
+    }
+
+    public double getMyX() {
+        return myX;
+    }
+
+    public double getMyY() {
+        return myY;
+    }
+
+    public int getMyWidth() {
+        return myWidth;
+    }
+
+    public int getMyHeight() {
+        return myHeight;
+    }
+
+    public void collision() {
         if (hidden) {
             return;
         }
@@ -65,7 +87,7 @@ public abstract class Shape {
             final double sYValue = shape.getMyY();
 
             if ((sXValue - (sMyWidth / 2.0)) <= myX && myX <= (sXValue + (sMyWidth / 2.0))) {
-                // Using vertical collision detection
+                // TODO Using vertical collision detection
                 final double threshold = (myY + (sMyHeight / 2.0));
                 final double deltaY = Math.abs(sYValue - myY);
 
@@ -86,7 +108,7 @@ public abstract class Shape {
                 }
             } else {
                 // TODO Using corner collision detection
-                final double minDistBCenter = shape.distancetocorner + (radius / 2);
+                final double minDistBCenter = shape.distancetocorner + radius;
                 final double distBetweenCenter = Math.sqrt(Math.pow((sXValue - myX), 2) + Math.pow((sYValue - myY), 2));
 
                 if (distBetweenCenter <= minDistBCenter) {
@@ -98,23 +120,4 @@ public abstract class Shape {
         }
     }
 
-    public double getDiameter() {
-        return radius;
-    }
-
-    public double getMyX() {
-        return myX;
-    }
-
-    public double getMyY() {
-        return myY;
-    }
-
-    public int getMyWidth() {
-        return myWidth;
-    }
-
-    public int getMyHeight() {
-        return myHeight;
-    }
 }

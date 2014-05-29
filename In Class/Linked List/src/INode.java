@@ -1,4 +1,9 @@
-public class LinkedList {
+/**
+ * @author ChrisHardingBrown May 13, 2014 Comp 1672
+ */
+public class INode {
+    // TODO get methods given an index/ object return element at that index
+
     private Node head;
 
     public LinkedList() {
@@ -8,6 +13,44 @@ public class LinkedList {
     public void insertAtHead(final Book b) {
         final Node newNode = new Node(b, head);
         head = newNode;
+    }
+
+    public int getNodeAt(final int i) {
+        
+        final int UI = i;   
+        final int counter = 1;
+        final Node temp = head;
+        
+            while(counter != UI && counter < index){
+                temp = Node.nextNode;
+                counter++;      
+            }
+            if ()
+        }
+
+    public int linkedListSize() {
+        Node temp = head;
+        int counter = 0;
+
+        while (temp != null) {
+            temp = temp.nextNode();
+            counter++;
+        }
+        return counter;
+    }
+
+    public boolean contains(final Book b) {
+
+        if (b) {
+            return;
+        }
+
+    }
+
+    public reverse(){
+       Node temp = head;
+        while (temp != null){
+            temp = temp.nextNode();
     }
 
     @Override
@@ -70,4 +113,18 @@ public class LinkedList {
         System.out.println(list);
         System.out.println(list);
     }
+
+    public int getNodeAt(final int i) {
+
+        final int UI = i;
+        final int counter = 0;
+        final Node temp = head;
+
+        while (counter != UI && counter < index) {
+
+            temp = Node.nextNode;
+            counter++;
+        }
+    }
+
 }

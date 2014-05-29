@@ -6,9 +6,10 @@ public class Square extends Shape {
 
     @Override
     public void draw() {
-        if (!hidden) {
-            StdDraw.setPenColor(StdDraw.RED);
-            StdDraw.filledSquare(myX, myY, radius);
-        }
+        // if (!hidden) {
+        StdDraw.setPenColor(StdDraw.RED);
+        StdDraw.filledSquare(myX, myY, radius);
+        // }
     }
+
 }

@@ -12,14 +12,14 @@ public class Jungle {
         StdDraw.setYscale(500, 0);
 
         final Random r = new Random();
-        final Shape[] sAry = new Shape[20];
 
-        for (int i = 0; i < (sAry.length / 2); i++) {
-            sAry[i] = new Square(r.nextInt(500), r.nextInt(500));
+        final Square[] sqArray = new Square[1];
+        for (int i = 0; i < sqArray.length; i++) {
+            sqArray[i] = new Square(r.nextInt(500), r.nextInt(500));
         }
-
-        for (int i = 10; i < sAry.length; i++) {
-            sAry[i] = new Circle(r.nextInt(500), r.nextInt(500));
+        final Circle[] cirArray = new Circle[100];
+        for (int i = 0; i < cirArray.length; i++) {
+            cirArray[i] = new Circle(r.nextInt(500), r.nextInt(500));
         }
 
         while (true) {
@@ -27,14 +27,16 @@ public class Jungle {
             StdDraw.clear();
 
             // draw and move square
-            for (final Shape sqr : sAry) {
-                sqr.move();
+            for (final Square sqr : sqArray) {
+                sqr.moveX();
                 sqr.draw();
             }
             // draw and move circle
-            for (final Shape cir : sAry) {
-                cir.move();
-                cir.collision(sAry);
+            for (final Circle cir : cirArray) {
+                cir.collision(sqArray);
+                cir.moveX();
+                cir.moveY();
+
                 cir.draw();
             }
             // Show the picture after 20 milliseconds
